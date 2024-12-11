@@ -2,9 +2,16 @@ import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
 public class PlanPro{
-  static double studentAvg(double math, double sci, double eng, double ss, double pe){
-    return (math + sci + eng + ss + pe)/5;
+  static double studentSum(ArrayList<Double> grades, int ind){
+    if (ind == grades.size()){
+      return 0;
+    }
+    return grades.get(ind) + studentSum(grades, ind + 1);
   }
+  static double studentAvg(ArrayList<Double> grades){
+    double sum = studentSum(grades, 0);
+    return sum / grades.size();
+    }
   static String performance( double average){
     String GREEN = "\u001B[32m";
     String YELLOW = "\u001B[33m";
@@ -49,14 +56,22 @@ public class PlanPro{
 
       studentInfo.add(empty);
     }
-    System.out.println("Math: " + studentInfo.get(0));
-    System.out.println("Science: " + studentInfo.get(1));
-    System.out.println("English: " + studentInfo.get(2));
-    System.out.println("Social Studies: " + studentInfo.get(3));
-    System.out.println("PE: " + studentInfo.get(4));
-    double average1 = studentAvg(studentInfo.get(0), studentInfo.get(1), studentInfo.get(2), studentInfo.get(3), studentInfo.get(4));
-    System.out.println("Students average: " + average1);
+    System.out.printf("Math: %.0f", studentInfo.get(0));
+    System.out.println(" ");
+    System.out.printf("Science: %.0f", studentInfo.get(1));
+    System.out.println(" ");
+    System.out.printf("English: %.0f", studentInfo.get(2));
+    System.out.println(" ");
+    System.out.printf("Social Studies: %.0f", studentInfo.get(3));
+    System.out.println(" ");
+    System.out.printf("PE: %.0f", studentInfo.get(4));
+    System.out.println(" ");
+    double average1 = studentAvg(studentInfo);
+    System.out.printf("Students average: %.1f", average1);
+    System.out.println(" ");
     System.out.println(performance(average1));
+    studentInfo.sort(null);
+    System.out.printf("Highest score: %.0f", studentInfo.get(studentInfo.size()-1));
   }
   }
 
